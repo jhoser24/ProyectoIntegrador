@@ -1,0 +1,283 @@
+// Importar Bootstrap usando la sintaxis moderna
+@use "sass:math";
+@use "sass:color";
+
+// Bootstrap
+@forward "bootstrap/scss/bootstrap";
+
+// Font Awesome
+@import "@fortawesome/fontawesome-free/css/all.min.css";
+
+// Import Themify Icons
+@import url("https://cdn.jsdelivr.net/gh/lykmapipo/themify-icons@0.1.2/css/themify-icons.css");
+
+// Variables
+$sidebar-width: 260px;
+$sidebar-collapsed-width: 70px;
+$header-height: 60px;
+
+// Colors
+$color-primary: #4285f4;
+$color-success: #34a853;
+$color-danger: #ea4335;
+$color-warning: #fbbc05;
+$color-info: #24d5d8;
+$color-dark: #3d4757;
+$color-light: #f5f6fa;
+$color-grey: #868e96;
+$color-white: #ffffff;
+
+// Mixins
+@mixin transition($args...) {
+  transition: $args;
+}
+
+// Global Styles
+body {
+  font-family: 'Roboto', sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  color: $color-dark;
+  background-color: $color-light;
+  overflow-x: hidden;
+}
+
+// Layout
+#app {
+  display: flex;
+  min-height: 100vh;
+}
+
+// Sidebar
+.sidebar {
+  width: $sidebar-width;
+  background-color: $color-white;
+  border-right: 1px solid rgba(0,0,0,.1);
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  z-index: 1000;
+  @include transition(all .3s ease);
+
+  &.is-collapsed {
+    width: $sidebar-collapsed-width;
+
+    .sidebar-logo {
+      .logo-text {
+        display: none;
+      }
+    }
+
+    .sidebar-menu {
+      .title {
+        display: none;
+      }
+    }
+  }
+
+  .sidebar-inner {
+    position: relative;
+    height: 100%;
+  }
+
+  .sidebar-logo {
+    padding: 15px;
+    border-bottom: 1px solid rgba(0,0,0,.1);
+
+    .logo {
+      width: 40px;
+      height: 40px;
+    }
+
+    .logo-text {
+      margin-left: 10px;
+      font-size: 20px;
+      font-weight: 600;
+      color: $color-dark;
+    }
+  }
+
+  .sidebar-menu {
+    padding: 15px 0;
+
+    .nav-item {
+      position: relative;
+      
+      .sidebar-link {
+        padding: 12px 15px;
+        display: flex;
+        align-items: center;
+        color: $color-dark;
+        text-decoration: none;
+        @include transition(all .3s ease);
+
+        &:hover, &.active {
+          background-color: rgba($color-primary, .1);
+          color: $color-primary;
+        }
+
+        .icon-holder {
+          width: 40px;
+          height: 40px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          
+          i {
+            font-size: 18px;
+          }
+        }
+
+        .title {
+          margin-left: 10px;
+        }
+      }
+    }
+  }
+}
+
+// Main Content
+.main-content {
+  margin-left: $sidebar-width;
+  padding: 20px;
+  width: calc(100% - #{$sidebar-width});
+  @include transition(all .3s ease);
+
+  .page-container {
+    padding: 20px;
+  }
+}
+
+// Header/Navbar
+.header.navbar {
+  height: $header-height;
+  background-color: $color-white;
+  border-bottom: 1px solid rgba(0,0,0,.1);
+  padding: 0 20px;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: $sidebar-width;
+  z-index: 999;
+  @include transition(all .3s ease);
+
+  .header-container {
+    display: flex;
+    justify-content: space-between;
+    height: 100%;
+  }
+
+  .nav-left, .nav-right {
+    display: flex;
+    align-items: center;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  .nav-item {
+    position: relative;
+    margin: 0 5px;
+
+    .nav-link {
+      padding: 0 15px;
+      color: $color-dark;
+      @include transition(all .3s ease);
+
+      &:hover {
+        color: $color-primary;
+      }
+    }
+
+    .counter {
+      position: absolute;
+      top: -5px;
+      right: 0;
+      padding: 2px 6px;
+      border-radius: 10px;
+      font-size: 11px;
+      color: $color-white;
+    }
+  }
+}
+
+// Cards
+.layers {
+  border-radius: 4px;
+  box-shadow: 0 1px 15px rgba(0,0,0,.04), 0 1px 6px rgba(0,0,0,.04);
+
+  .layer {
+    padding: 15px;
+  }
+}
+
+// Utilities
+.peers {
+  display: flex;
+  align-items: center;
+}
+
+.peer {
+  display: block;
+  flex: 1 1 auto;
+}
+
+.peer-greed {
+  flex: 1 1 auto;
+}
+
+// Spacing
+.mB-10 { margin-bottom: 10px; }
+.mR-10 { margin-right: 10px; }
+.pX-15 { padding-left: 15px; padding-right: 15px; }
+.pY-15 { padding-top: 15px; padding-bottom: 15px; }
+
+// Colors
+.bgc-white { background-color: $color-white; }
+.bgc-blue-50 { background-color: rgba($color-primary, .1); }
+.bgc-green-50 { background-color: rgba($color-success, .1); }
+.bgc-red-50 { background-color: rgba($color-danger, .1); }
+.bgc-orange-50 { background-color: rgba($color-warning, .1); }
+
+.c-blue-500 { color: $color-primary; }
+.c-green-500 { color: $color-success; }
+.c-red-500 { color: $color-danger; }
+.c-orange-500 { color: $color-warning; }
+
+// Typography
+.fw-600 { font-weight: 600; }
+.lh-1 { line-height: 1; }
+.fsz-sm { font-size: 13px; }
+
+// Borders
+.bdrs-50p { border-radius: 50%; }
+.bdrs-10em { border-radius: 10em; }
+
+// Display
+.d-ib { display: inline-block; }
+.va-m { vertical-align: middle; }
+.td-n { text-decoration: none; }
+
+// Width/Height
+.w-2r { width: 2rem; }
+
+// Responsive
+@media (max-width: 768px) {
+  .sidebar {
+    transform: translateX(-100%);
+
+    &.is-collapsed {
+      transform: translateX(0);
+    }
+  }
+
+  .main-content {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .header.navbar {
+    left: 0;
+  }
+} 
